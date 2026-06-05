@@ -24,7 +24,7 @@ export const AuroraBackground = ({
           [background-image:var(--dark-gradient),var(--aurora)]
           [background-size:300%,_200%]
           [background-position:50%_50%,50%_50%]
-          filter blur-[10px]
+          filter blur-[3px]
           after:content-[''] after:absolute after:inset-0
           after:[background-image:var(--dark-gradient),var(--aurora)]
           after:[background-size:200%,_100%]

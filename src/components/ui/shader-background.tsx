@@ -179,8 +179,12 @@ const ShaderBackground = ({
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    let rafId: number;
+    let isVisible = true;
     let startTime = Date.now();
+
     const render = () => {
+      if (!isVisible) { rafId = requestAnimationFrame(render); return; }
       const currentTime = (Date.now() - startTime) / 1000;
 
       gl.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -199,10 +203,16 @@ const ShaderBackground = ({
       rafId = requestAnimationFrame(render);
     };
 
-    let rafId = requestAnimationFrame(render);
+    rafId = requestAnimationFrame(render);
+
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0 });
+    io.observe(canvas);
 
     return () => {
       cancelAnimationFrame(rafId);
+      io.disconnect();
       window.removeEventListener('resize', resizeCanvas);
     };
   }, []);

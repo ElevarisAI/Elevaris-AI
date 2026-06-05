@@ -6,12 +6,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import Index from "./pages/Index";
-import AIAgents from "./pages/AIAgents";
-import WebsitesSEO from "./pages/WebsitesSEO";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import { useEffect, useRef, lazy, Suspense } from "react";
+
+const Index = lazy(() => import("./pages/Index"));
+const AIAgents = lazy(() => import("./pages/AIAgents"));
+const WebsitesSEO = lazy(() => import("./pages/WebsitesSEO"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -38,14 +39,16 @@ const AnimatedRoutes = () => {
         animate={{ opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
         exit={{ opacity: 0, scale: 0.988, transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
       >
-        <Routes location={location}>
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<Index />} />
-          <Route path="/ai-agents" element={<AIAgents />} />
-          <Route path="/websites-seo" element={<WebsitesSEO />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen bg-background" />}>
+          <Routes location={location}>
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<Index />} />
+            <Route path="/ai-agents" element={<AIAgents />} />
+            <Route path="/websites-seo" element={<WebsitesSEO />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </motion.div>
     </AnimatePresence>
     </>

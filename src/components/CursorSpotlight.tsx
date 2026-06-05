@@ -1,22 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const CursorSpotlight = () => {
   const [pos, setPos] = useState({ x: -1000, y: -1000 });
   const [visible, setVisible] = useState(false);
+  const rafRef = useRef<number>();
 
   useEffect(() => {
+    if ("ontouchstart" in window) return;
+
     const onMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      setVisible(true);
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        setPos({ x: e.clientX, y: e.clientY });
+        setVisible(true);
+        rafRef.current = undefined;
+      });
     };
     const onLeave = () => setVisible(false);
+
     window.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
+  if (typeof window !== "undefined" && "ontouchstart" in window) return null;
 
   return (
     <div

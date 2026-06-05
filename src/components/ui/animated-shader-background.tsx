@@ -13,11 +13,29 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
     let geometry: THREE.PlaneGeometry | null = null;
     let material: THREE.ShaderMaterial | null = null;
     let frameId: number | null = null;
+    let resizeHandler: (() => void) | null = null;
+
+    const stopAnimation = () => {
+      if (frameId !== null) { cancelAnimationFrame(frameId); frameId = null; }
+    };
+
+    const startAnimation = () => {
+      if (frameId !== null) return;
+      const loop = () => {
+        if (!renderer || !scene || !material) return;
+        material.uniforms.iTime.value += 0.016;
+        renderer.render(scene, camera);
+        frameId = requestAnimationFrame(loop);
+      };
+      frameId = requestAnimationFrame(loop);
+    };
+
+    let camera: THREE.OrthographicCamera;
 
     try {
       scene = new THREE.Scene();
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       const w = container.offsetWidth || container.parentElement?.offsetWidth || window.innerWidth;
@@ -38,16 +56,12 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
           iResolution: { value: new THREE.Vector2(w, h) },
         },
         transparent: true,
-        vertexShader: `
-          void main() {
-            gl_Position = vec4(position, 1.0);
-          }
-        `,
+        vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
         fragmentShader: `
           uniform float iTime;
           uniform vec2 iResolution;
 
-          #define NUM_OCTAVES 3
+          #define NUM_OCTAVES 2
 
           float rand(vec2 n) {
             return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
@@ -84,9 +98,9 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
 
             float f = 2.0 + fbm(p + vec2(iTime * 5.0, 0.0)) * 0.5;
 
-            for (float i = 0.0; i < 35.0; i++) {
+            for (float i = 0.0; i < 16.0; i++) {
               v = p + cos(i * i + (iTime + p.x * 0.08) * 0.025 + i * vec2(13.0, 11.0)) * 3.5 + vec2(sin(iTime * 3.0 + i) * 0.003, cos(iTime * 3.5 - i) * 0.003);
-              float tailNoise = fbm(v + vec2(iTime * 0.5, i)) * 0.3 * (1.0 - (i / 35.0));
+              float tailNoise = fbm(v + vec2(iTime * 0.5, i)) * 0.3 * (1.0 - (i / 16.0));
               vec4 auroraColors = vec4(
                 0.05 + 0.08 * sin(i * 0.2 + iTime * 0.4),
                 0.55 + 0.15 * cos(i * 0.3 + iTime * 0.5),
@@ -94,7 +108,7 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
                 1.0
               );
               vec4 currentContribution = auroraColors * exp(sin(i * i + iTime * 0.8)) / length(max(v, vec2(v.x * f * 0.015, v.y * 1.5)));
-              float thinnessFactor = smoothstep(0.0, 1.0, i / 35.0) * 0.6;
+              float thinnessFactor = smoothstep(0.0, 1.0, i / 16.0) * 0.6;
               o += currentContribution * (1.0 + tailNoise * 0.8) * thinnessFactor;
             }
 
@@ -108,15 +122,13 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
 
-      const animate = () => {
-        if (!renderer || !scene || !material) return;
-        material.uniforms.iTime.value += 0.016;
-        renderer.render(scene, camera);
-        frameId = requestAnimationFrame(animate);
-      };
-      animate();
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) startAnimation();
+        else stopAnimation();
+      }, { rootMargin: '100px', threshold: 0 });
+      io.observe(container);
 
-      const handleResize = () => {
+      resizeHandler = () => {
         if (!renderer || !material) return;
         const w = container.offsetWidth;
         const h = container.offsetHeight;
@@ -126,21 +138,22 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
           material.uniforms.iResolution.value.set(w, h);
         }
       };
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', resizeHandler);
+
+      return () => {
+        io.disconnect();
+        stopAnimation();
+        if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+        const canvas = renderer?.domElement;
+        if (canvas && container.contains(canvas)) container.removeChild(canvas);
+        geometry?.dispose();
+        material?.dispose();
+        renderer?.dispose();
+      };
 
     } catch (e) {
       console.warn('AnimatedShaderBackground: WebGL unavailable', e);
     }
-
-    return () => {
-      if (frameId !== null) cancelAnimationFrame(frameId);
-      window.removeEventListener('resize', () => {});
-      const canvas = renderer?.domElement;
-      if (canvas && container.contains(canvas)) container.removeChild(canvas);
-      geometry?.dispose();
-      material?.dispose();
-      renderer?.dispose();
-    };
   }, []);
 
   return <div ref={containerRef} className={`absolute inset-0 pointer-events-none z-0 ${className}`} />;

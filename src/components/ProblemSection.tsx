@@ -74,7 +74,7 @@ const ProblemSection = () => {
               initial={{ opacity: 0, y: 44 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "200px" }}
-              transition={{ duration: 0.65, delay: i === 0 ? 2.9 : i === 1 ? 3.92 : 3.99, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.65, delay: i === 0 ? 2.9 : i === 1 ? 3.35 : 3.99, ease: [0.22, 1, 0.36, 1] }}
               className="border-t border-[hsl(var(--hairline))] last:border-b"
             >
               <div className="problem-row">

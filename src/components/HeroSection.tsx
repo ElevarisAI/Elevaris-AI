@@ -25,8 +25,8 @@ const HeroSection = () => {
         className="pointer-events-none select-none absolute -right-20 -bottom-28 w-[640px] h-[640px] opacity-[0.09] hidden md:block z-10"
       />
 
-      <div className="container-narrow px-6 sm:px-8 lg:px-12 pt-40 pb-28 lg:pt-48 lg:pb-36 relative z-10">
-        <motion.div {...fadeUp(0)} className="flex items-center justify-between mb-20 lg:mb-28">
+      <div className="container-narrow px-6 sm:px-8 lg:px-12 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-36 relative z-10">
+        <motion.div {...fadeUp(0)} className="flex items-center justify-between mb-10 sm:mb-14 lg:mb-28">
           <div className="flex items-center gap-3">
             <span className="micro-label">AI Receptionist</span>
           </div>
@@ -38,12 +38,12 @@ const HeroSection = () => {
             <h1
               className="font-heading font-medium text-foreground"
               style={{
-                fontSize: 'clamp(44px, 7vw, 110px)',
+                fontSize: 'clamp(38px, 7vw, 110px)',
                 lineHeight: 0.95,
                 letterSpacing: '-0.035em',
               }}
             >
-              <div className="overflow-hidden">
+              <div className="overflow-hidden pb-[0.12em]">
                 <motion.span
                   className="block"
                   initial={{ y: '110%' }}
@@ -53,7 +53,7 @@ const HeroSection = () => {
                   Never <span className="accent-italic" style={{ fontSize: '0.95em' }}>miss</span> a call.
                 </motion.span>
               </div>
-              <div className="overflow-hidden">
+              <div className="overflow-hidden pb-[0.12em]">
                 <motion.span
                   className="block"
                   initial={{ y: '110%' }}
@@ -73,7 +73,7 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        <motion.div {...fadeUp(0.25)} className="mt-20 lg:mt-28 relative z-10">
+        <motion.div {...fadeUp(0.25)} className="mt-10 sm:mt-14 lg:mt-28 relative z-10">
           <DrawLine delay={0.35} className="mb-8" />
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div className="flex flex-wrap items-center gap-x-10 gap-y-6">

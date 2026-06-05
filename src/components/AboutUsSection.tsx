@@ -29,7 +29,7 @@ const AboutUsSection = () => {
           <span className="micro-label">Who We Are</span>
         </motion.div>
 
-        <div className="grid grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-12 gap-y-12 gap-x-0 lg:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, y: 44 }}
             whileInView={{ opacity: 1, y: 0 }}

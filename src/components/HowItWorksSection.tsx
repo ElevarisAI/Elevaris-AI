@@ -45,7 +45,7 @@ const HowItWorksSection = () => {
 
         <DrawLine className="mb-0" />
 
-        <div className="grid grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid grid-cols-12 gap-y-12 gap-x-0 lg:gap-16">
           <ol className="col-span-12 lg:col-span-7 flex flex-col">
             {steps.map((step, i) => (
               <motion.li

@@ -97,8 +97,8 @@ const WebsitesSEO = () => {
             aria-hidden="true"
             className="pointer-events-none select-none absolute -right-20 -bottom-28 w-[640px] h-[640px] opacity-[0.09] hidden md:block z-10"
           />
-          <div className="container-narrow px-6 sm:px-8 lg:px-12 pt-40 pb-28 lg:pt-48 lg:pb-36 relative z-10">
-            <motion.div {...fadeUp(0)} className="flex items-center justify-between mb-20 lg:mb-28">
+          <div className="container-narrow px-6 sm:px-8 lg:px-12 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-36 relative z-10">
+            <motion.div {...fadeUp(0)} className="flex items-center justify-between mb-10 sm:mb-14 lg:mb-28">
               <div className="flex items-center gap-3">
                 <span className="micro-label-line" />
                 <span className="micro-label">Websites & SEO</span>
@@ -110,9 +110,9 @@ const WebsitesSEO = () => {
               <div className="col-span-12">
                 <h1
                   className="font-heading font-medium text-foreground"
-                  style={{ fontSize: 'clamp(44px, 7vw, 110px)', lineHeight: 0.95, letterSpacing: '-0.035em' }}
+                  style={{ fontSize: 'clamp(38px, 7vw, 110px)', lineHeight: 0.95, letterSpacing: '-0.035em' }}
                 >
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden pb-[0.12em]">
                     <motion.span
                       className="block"
                       initial={{ y: '110%' }}
@@ -122,7 +122,7 @@ const WebsitesSEO = () => {
                       Get <span className="accent-italic" style={{ fontSize: '0.95em' }}>found</span>.
                     </motion.span>
                   </div>
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden pb-[0.12em]">
                     <motion.span
                       className="block"
                       initial={{ y: '110%' }}
@@ -141,7 +141,7 @@ const WebsitesSEO = () => {
               </motion.div>
             </div>
 
-            <motion.div {...fadeUp(0.25)} className="mt-20 lg:mt-28">
+            <motion.div {...fadeUp(0.25)} className="mt-10 sm:mt-14 lg:mt-28">
               <DrawLine delay={0.35} className="mb-8" />
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
                 <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
@@ -199,7 +199,7 @@ const WebsitesSEO = () => {
 
             <div className="flex flex-col">
               {problems.map((row, i) => (
-                <motion.div key={row.num} {...fadeUp(3.85 + i * 0.07)} viewport={{ once: true, margin: '200px' }} className="border-t border-[hsl(var(--hairline))] last:border-b">
+                <motion.div key={row.num} {...fadeUp(i === 0 ? 3.85 : i === 1 ? 4.00 : 4.15)} viewport={{ once: true, margin: '200px' }} className="border-t border-[hsl(var(--hairline))] last:border-b">
                   <div className="problem-row">
                     <div><span className="index-numeral" style={{ fontSize: 16 }}>— {row.num}</span></div>
                     <div>
@@ -294,7 +294,7 @@ const WebsitesSEO = () => {
 
             <DrawLine className="mb-0" />
 
-            <div className="grid grid-cols-12 gap-12 lg:gap-16">
+            <div className="grid grid-cols-12 gap-y-12 gap-x-0 lg:gap-16">
               <ol className="col-span-12 lg:col-span-7 flex flex-col">
                 {steps.map((step, i) => (
                   <motion.li key={step.num} {...fadeUp(i * 0.1)} className="border-t border-[hsl(var(--hairline))] last:border-b">

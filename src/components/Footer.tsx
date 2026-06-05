@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="relative overflow-hidden border-t border-[hsl(var(--hairline))] bg-background">
       <div className="container-narrow px-6 sm:px-8 lg:px-12 py-20">
-        <div className="grid grid-cols-12 gap-10 mb-16">
+        <div className="grid grid-cols-12 gap-y-10 gap-x-0 sm:gap-10 mb-16">
           <div className="col-span-12 md:col-span-5 flex flex-col justify-between gap-10">
             <div>
               <Link to="/" className="inline-flex items-center gap-2.5 group">
@@ -23,7 +23,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="col-span-6 md:col-span-3">
+          <div className="col-span-12 sm:col-span-6 md:col-span-3">
             <p className="micro-label mb-5">Practice</p>
             <ul className="flex flex-col gap-3">
               <li><Link to="/ai-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Receptionist</Link></li>
@@ -31,7 +31,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-span-6 md:col-span-4">
+          <div className="col-span-12 sm:col-span-6 md:col-span-4">
             <p className="micro-label mb-5">Studio</p>
             <ul className="flex flex-col gap-3">
               <li>

@@ -18,6 +18,7 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
       scene = new THREE.Scene();
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       const w = container.offsetWidth || container.parentElement?.offsetWidth || window.innerWidth;
       const h = container.offsetHeight || container.parentElement?.offsetHeight || window.innerHeight;
@@ -120,6 +121,7 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
         const w = container.offsetWidth;
         const h = container.offsetHeight;
         if (w && h) {
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
           renderer.setSize(w, h);
           material.uniforms.iResolution.value.set(w, h);
         }

@@ -124,12 +124,12 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
           </p>
         </div>
       )}
-      <div className={`container-narrow px-6 sm:px-8 lg:px-12 ${hero ? "pt-40 pb-28 lg:pt-48 lg:pb-36" : "py-24 md:py-32"}`}>
+      <div className={`container-narrow px-6 sm:px-8 lg:px-12 ${hero ? "pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-36" : "py-24 md:py-32"}`}>
 
         {/* Meta row */}
         <motion.div
           {...enter(0)}
-          className="flex items-center justify-between mb-20 lg:mb-28"
+          className="flex items-center justify-between mb-10 sm:mb-14 lg:mb-28"
         >
           <div className="flex items-center gap-3">
             <span className="micro-label-line" />
@@ -138,7 +138,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
           {hero && <span className="hidden sm:block micro-label">Australia</span>}
         </motion.div>
 
-        <div className="grid grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-12 gap-y-10 gap-x-0 md:gap-12 items-start">
           {/* Left col — heading + copy */}
           <motion.div
             {...enter(hero ? 0.08 : 0)}
@@ -147,7 +147,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
             <h2
               className="font-heading font-medium text-foreground mb-8"
               style={{
-                fontSize: hero ? 'clamp(44px, 6vw, 96px)' : 'clamp(32px, 5vw, 64px)',
+                fontSize: hero ? 'clamp(38px, 6vw, 96px)' : 'clamp(32px, 5vw, 64px)',
                 letterSpacing: '-0.035em',
                 lineHeight: hero ? 0.95 : 1.05,
                 maxWidth: hero ? '10ch' : '14ch',

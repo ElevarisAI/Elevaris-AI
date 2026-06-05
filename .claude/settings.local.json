@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx shadcn@latest add https://21st.dev/r/minhxthanh/shader-background)",
+      "Bash(bun dev *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s http://localhost:8081)",
+      "Bash(bun run *)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/aceternity/container-scroll-animation)",
+      "Bash(node -e ' *)",
+      "Bash(npx playwright *)",
+      "Bash(find /Users/harleygrey -name \"playwright\" -type f 2>/dev/null | head -5 *)",
+      "Read(//Users/harleygrey/**)",
+      "Read(//Users/harleygrey/.npm/**)",
+      "Bash(npm install *)",
+      "Bash(bun add *)",
+      "Bash(bunx playwright *)",
+      "Bash(curl -s http://localhost:8082/)",
+      "Bash(curl -s http://localhost:8083)"
+    ]
+  }
+}

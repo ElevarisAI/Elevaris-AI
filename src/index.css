@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 14% 5%;
+    --foreground: 40 20% 96%;
+
+    --card: 240 14% 7%;
+    --card-foreground: 40 20% 96%;
+    --card-border: 0 0% 100% / 0.06;
+
+    --popover: 240 14% 7%;
+    --popover-foreground: 40 20% 96%;
+
+    --primary: 184 56% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 184 40% 32%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 12% 12%;
+    --muted-foreground: 240 8% 62%;
+
+    --accent: 184 56% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 100% / 0.06;
+    --input: 0 0% 100% / 0.08;
+    --ring: 184 56% 42%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 240 14% 5%;
+    --sidebar-foreground: 40 20% 96%;
+    --sidebar-primary: 184 56% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 12% 12%;
+    --sidebar-accent-foreground: 40 20% 96%;
+    --sidebar-border: 0 0% 100% / 0.06;
+    --sidebar-ring: 184 56% 42%;
+
+    /* Editorial tokens */
+    --hairline: 0 0% 100% / 0.08;
+    --hairline-strong: 0 0% 100% / 0.14;
+    --section-alt: 240 14% 7%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.35);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply max-w-[1240px] mx-auto;
+  }
+
+  .section-padding {
+    @apply px-6 sm:px-8 lg:px-12 py-24 md:py-28 lg:py-32;
+  }
+
+  .section-alt {
+    background-color: hsl(var(--section-alt));
+  }
+
+  /* Hairline divider */
+  .hairline {
+    height: 1px;
+    background: hsl(var(--hairline));
+  }
+
+  /* Editorial micro-label: index marker style */
+  .micro-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .micro-label-line {
+    display: none;
+  }
+
+  /* Index numeral (editorial) */
+  .index-numeral {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Editorial italic accent */
+  .accent-italic {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    color: hsl(var(--primary));
+  }
+
+  /* Quiet card surface — flatter, less glassy */
+  .surface {
+    background: hsl(240 14% 7%);
+    border: 1px solid hsl(var(--hairline));
+  }
+
+  .surface-hover {
+    @apply surface transition-colors duration-300;
+  }
+  .surface-hover:hover {
+    border-color: hsl(var(--hairline-strong));
+  }
+
+  /* Underline link */
+  .link-underline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: hsl(var(--foreground));
+    padding-bottom: 4px;
+    border-bottom: 1px solid hsl(var(--hairline-strong));
+    transition: border-color 200ms, color 200ms;
+  }
+  .link-underline:hover {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+  }
+
+  .pill-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 text-[11px] uppercase tracking-[0.2em] font-medium;
+    border: 1px solid hsl(var(--hairline));
+    color: hsl(var(--muted-foreground));
+    border-radius: 999px;
+  }
+
+  .gradient-text {
+    color: hsl(var(--primary));
+  }
+  .gradient-fill {
+    background-color: hsl(var(--primary));
+  }
+
+  /* Legacy classes mapped to flat surfaces (no glass / glow) */
+  .glass-card {
+    background: hsl(240 14% 7%);
+    border: 1px solid hsl(var(--hairline));
+    border-radius: 4px;
+  }
+  .glass-card-hover {
+    @apply glass-card transition-colors duration-300;
+  }
+  .glass-card-hover:hover {
+    border-color: hsl(var(--hairline-strong));
+  }
+  .glow-blob { display: none; }
+  .dot-grid { display: none; }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-x 35s linear infinite;
+}
+
+/* Problem row layout retained */
+.problem-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 0 2.5rem;
+  padding: 2.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .problem-row {
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .problem-row .stat-pill {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0.75rem;
+  }
+}
+
+@theme inline {
+  @keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+    }
+  50% {
+    transform: translateY(-10px);
+    }
+  }
+}

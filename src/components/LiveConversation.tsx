@@ -2,26 +2,31 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const messages = [
-  { from: "caller", text: "Hi there — I'd like to book a cut and colour for Saturday if possible?" },
-  { from: "ai",     text: "Of course. I have 10am or 2pm available on Saturday. Which works best for you?" },
-  { from: "caller", text: "2pm would be great. Name's Sarah." },
-  { from: "ai",     text: "Perfect, Sarah — booked for Saturday at 2pm, cut and colour. Confirmation text coming through now. Anything else I can help with?" },
-  { from: "caller", text: "No that's everything, thank you." },
-  { from: "ai",     text: "Brilliant. See you Saturday, Sarah. Have a great day." },
+  { from: "caller", text: "Hi there — I need to book my Hilux in for a service. It's due for its 60k." },
+  { from: "ai",     text: "Sure thing. What day were you thinking?" },
+  { from: "caller", text: "Is Tuesday any good?" },
+  { from: "ai",     text: "Tuesday works. We have 7:30am, 10am, or 2pm available — what time suits?" },
+  { from: "caller", text: "10am please. Name's Dave." },
+  { from: "ai",     text: "Perfect, Dave — you're booked in for Tuesday at 10am for your 60k service. Confirmation text coming through now. Anything else?" },
+  { from: "caller", text: "Yeah — the brakes have felt a bit spongy lately. Can you flag that for the tech?" },
+  { from: "ai",     text: "Absolutely — noted. The technician will check the brakes during your service. See you Tuesday, Dave." },
 ];
 
-// [type, delay ms]
+// [type, delay ms] — caller: ~0.14s/word, AI: ~0.07s/word
 const timeline: ["msg" | "wave" | "footer", number][] = [
-  ["msg",    600],   // caller starts
-  ["wave",   2900],  // wave after caller finishes (~2700ms)
-  ["msg",    4000],  // AI responds
-  ["msg",    5400],  // caller — short gap after AI finishes (~5050ms)
-  ["wave",   6600],  // wave after Sarah finishes (~6240ms)
-  ["msg",    7700],  // AI long response
-  ["msg",    9700],  // caller — after AI finishes (~9240ms)
-  ["wave",   10700], // wave after caller finishes (~10400ms)
-  ["msg",    11800], // AI closes
-  ["footer", 13000], // booking confirmed
+  ["msg",    600],    // caller 1: 17w → finishes ~2980ms
+  ["wave",   3250],
+  ["msg",    4150],   // AI 1: 7w → finishes ~4640ms
+  ["msg",    5000],   // caller 2: 4w → finishes ~5560ms
+  ["wave",   5900],
+  ["msg",    6800],   // AI 2: 12w → finishes ~7640ms
+  ["msg",    8000],   // caller 3: 4w → finishes ~8560ms
+  ["wave",   8900],
+  ["msg",    9800],   // AI 3: 20w → finishes ~11200ms
+  ["msg",    11700],  // caller 4: 16w → finishes ~13940ms
+  ["wave",   14300],
+  ["msg",    15200],  // AI 4: 15w → finishes ~16250ms
+  ["footer", 17500],
 ];
 
 const Waveform = () => (
@@ -93,7 +98,7 @@ const LiveConversation = () => {
       <div className="flex items-center justify-between border-b border-[hsl(var(--hairline))] px-8 py-4 shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Live Call — Bella Beauty Studio</span>
+          <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Live Call — Ridge Auto Workshop</span>
         </div>
         <span className="text-[11px] uppercase tracking-[0.2em] text-primary">● Connected</span>
       </div>
@@ -150,7 +155,7 @@ const LiveConversation = () => {
           >
             <div className="flex items-center gap-2.5">
               <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-              <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Booking confirmed — Saturday 2:00pm</span>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Booking confirmed — Tuesday 10:00am</span>
             </div>
             <span className="text-[11px] uppercase tracking-[0.2em] text-primary">Synced to calendar ✓</span>
           </motion.div>

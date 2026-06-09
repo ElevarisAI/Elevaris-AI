@@ -144,6 +144,9 @@ const ShaderBackground = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // WebGL is too expensive on narrow viewports — skip init entirely on mobile
+    if (window.innerWidth < 768) return;
+
     const gl = canvas.getContext('webgl', { alpha: true });
     if (!gl) {
       console.warn('WebGL not supported.');

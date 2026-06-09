@@ -32,6 +32,9 @@ const AnimatedShaderBackground = ({ className = "" }: { className?: string }) =>
 
     let camera: THREE.OrthographicCamera;
 
+    // Three.js shader is too heavy for narrow viewports
+    if (window.innerWidth < 768) return;
+
     try {
       scene = new THREE.Scene();
       camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);

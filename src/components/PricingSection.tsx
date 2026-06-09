@@ -74,7 +74,7 @@ const PricingSection = () => {
                 <div>
                   <p className="micro-label mb-3">Service</p>
                   <p className="font-heading text-foreground" style={{ fontSize: 'clamp(36px, 4.5vw, 56px)', fontWeight: 500, letterSpacing: '-0.03em', lineHeight: 1 }}>
-                    $499
+                    $999
                   </p>
                   <p className="text-muted-foreground text-xs mt-2 tracking-wide">per month AUD</p>
                 </div>

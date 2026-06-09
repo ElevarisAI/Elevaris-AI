@@ -219,11 +219,6 @@
   }
 }
 
-/* CSS containment: prevent section layout/style from triggering full-page reflows */
-section {
-  contain: layout style;
-}
-
 /* Respect reduced-motion preference — stop CSS animations */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

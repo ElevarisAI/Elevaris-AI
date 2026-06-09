@@ -170,9 +170,9 @@ const ShaderBackground = ({
     };
 
     const resizeCanvas = () => {
-      // Half resolution on mobile keeps the effect visible but cheap to render
+      // Cap at 1x on mobile (sharp, not upscaled) and 2x on desktop
       const dpr = window.innerWidth < 768
-        ? 0.75
+        ? 1
         : Math.min(window.devicePixelRatio, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;

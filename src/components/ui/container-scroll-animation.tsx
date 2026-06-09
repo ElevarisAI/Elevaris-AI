@@ -88,8 +88,8 @@ export const Card = ({
   translate: MotionValue<number> | null;
   children: React.ReactNode;
 }) => {
-  const cardClass =
-    "max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px]";
+  const sharedClass =
+    "max-w-5xl mx-auto h-[30rem] md:h-[40rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px]";
   const inner = (
     <div className="h-full w-full overflow-hidden rounded-2xl bg-[hsl(240_14%_5%)]">
       {children}
@@ -97,13 +97,13 @@ export const Card = ({
   );
 
   if (!rotate || !scale) {
-    return <div className={cardClass}>{inner}</div>;
+    return <div className={`${sharedClass} mt-6`}>{inner}</div>;
   }
 
   return (
     <motion.div
       style={{ rotateX: rotate, scale }}
-      className={cardClass}
+      className={`${sharedClass} -mt-12`}
     >
       {inner}
     </motion.div>

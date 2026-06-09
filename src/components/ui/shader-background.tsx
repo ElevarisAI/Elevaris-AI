@@ -144,9 +144,6 @@ const ShaderBackground = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // WebGL is too expensive on narrow viewports — skip init entirely on mobile
-    if (window.innerWidth < 768) return;
-
     const gl = canvas.getContext('webgl', { alpha: true });
     if (!gl) {
       console.warn('WebGL not supported.');
@@ -173,7 +170,10 @@ const ShaderBackground = ({
     };
 
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      // Half resolution on mobile keeps the effect visible but cheap to render
+      const dpr = window.innerWidth < 768
+        ? 0.75
+        : Math.min(window.devicePixelRatio, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);

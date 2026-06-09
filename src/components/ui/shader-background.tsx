@@ -170,12 +170,15 @@ const ShaderBackground = ({
     };
 
     const resizeCanvas = () => {
-      // Cap at 1x on mobile (sharp, not upscaled) and 2x on desktop
-      const dpr = window.innerWidth < 768
-        ? 1
-        : Math.min(window.devicePixelRatio, 2);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      // Use the canvas's actual CSS render dimensions, not window dimensions.
+      // The canvas is absolute inset-0 w-full h-full, so its size equals
+      // the parent section — which may be shorter than window.innerHeight.
+      // Using window dimensions causes vertical squishing on mobile.
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
 

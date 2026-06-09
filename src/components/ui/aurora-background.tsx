@@ -28,7 +28,8 @@ export const AuroraBackground = ({
           after:[background-image:var(--dark-gradient),var(--aurora)]
           after:[background-size:200%,_100%]
           after:animate-aurora after:mix-blend-difference
-          absolute -inset-[10px] opacity-50 will-change-transform`,
+          filter blur-[3px]
+          absolute -inset-[10px] opacity-65 will-change-transform`,
           mask
         )}
       />

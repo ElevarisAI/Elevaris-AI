@@ -205,7 +205,7 @@ const Index = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.5, delay: i < 4 ? 0.5 + i * 0.16 : 1.18 + (i - 4) * 0.10, ease: [0.22, 1, 0.36, 1] as const }}
+                    transition={{ duration: 0.5, delay: i < 4 ? 0.35 + i * 0.11 : 0.85 + (i - 4) * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
                     className={italic ? "accent-italic" : undefined}
                   >
                     {word}{" "}
@@ -220,7 +220,7 @@ const Index = () => {
               {services.map((s, i) => (
                 <motion.li
                   key={s.title}
-                  {...fadeUp(i === 0 ? 2.3 : i === 1 ? 2.45 : 2.70)} viewport={{ once: true, margin: '200px' }}
+                  {...fadeUp(i === 0 ? 1.5 : i === 1 ? 1.65 : 1.85)} viewport={{ once: true, margin: '200px' }}
                   className="border-b border-[hsl(var(--hairline))] group relative"
                 >
                   {/* Hover accent bar */}
@@ -303,7 +303,7 @@ const Index = () => {
                   { k: "< 2 Weeks", v: "Delivered in under 2 weeks, guaranteed." },
                   { k: "No Lock-ins", v: "Month-to-month. Cancel any time." },
                 ].map((item, i) => (
-                  <motion.div key={item.k} {...fadeUp(1.3 + i * 0.07)}>
+                  <motion.div key={item.k} {...fadeUp(0.45 + i * 0.07)}>
                     <p className="font-heading text-foreground text-2xl mb-2" style={{ letterSpacing: '-0.01em' }}>
                       <CountUp value={item.k} />
                     </p>

@@ -1,5 +1,6 @@
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorSpotlight from "@/components/CursorSpotlight";
+import ScrollProgress from "@/components/ScrollProgress";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -63,6 +64,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollProgress />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>

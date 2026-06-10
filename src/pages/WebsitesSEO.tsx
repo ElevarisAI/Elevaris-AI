@@ -186,7 +186,7 @@ const WebsitesSEO = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.5, delay: i <= 5 ? 0.5 + i * 0.10 : i <= 13 ? 1.55 + (i - 6) * 0.10 : 2.80 + (i - 14) * 0.10, ease: [0.22, 1, 0.36, 1] as const }}
+                    transition={{ duration: 0.5, delay: i <= 5 ? 0.35 + i * 0.07 : i <= 13 ? 1.0 + (i - 6) * 0.07 : 1.7 + (i - 14) * 0.07, ease: [0.22, 1, 0.36, 1] as const }}
                     className={italic ? "accent-italic" : undefined}
                   >
                     {word}{" "}
@@ -199,7 +199,7 @@ const WebsitesSEO = () => {
 
             <div className="flex flex-col">
               {problems.map((row, i) => (
-                <motion.div key={row.num} {...fadeUp(i === 0 ? 3.85 : i === 1 ? 4.00 : 4.15)} viewport={{ once: true, margin: '200px' }} className="border-t border-[hsl(var(--hairline))] last:border-b">
+                <motion.div key={row.num} {...fadeUp(i === 0 ? 2.1 : i === 1 ? 2.25 : 2.4)} viewport={{ once: true, margin: '200px' }} className="border-t border-[hsl(var(--hairline))] last:border-b">
                   <div className="problem-row">
                     <div><span className="index-numeral" style={{ fontSize: 16 }}>— {row.num}</span></div>
                     <div>
@@ -209,7 +209,7 @@ const WebsitesSEO = () => {
                       <p className="text-muted-foreground" style={{ fontSize: 15, lineHeight: 1.7, maxWidth: '60ch' }}>{row.description}</p>
                     </div>
                     <div className="stat-pill">
-                      <span className="inline-block text-primary" style={{ border: '1px solid hsl(var(--primary) / 0.4)', padding: '7px 14px', borderRadius: 999, fontSize: 12, letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+                      <span className="stat-pill-chip inline-block text-primary" style={{ border: '1px solid hsl(var(--primary) / 0.4)', padding: '7px 14px', borderRadius: 999, fontSize: 12, letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
                         {row.pill}
                       </span>
                     </div>

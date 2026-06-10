@@ -17,7 +17,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -50,15 +50,21 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="text-[13px] tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.to;
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                aria-current={isActive ? "page" : undefined}
+                className={`nav-link text-[13px] tracking-wide transition-colors duration-200 ${
+                  isActive ? "nav-link-active" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         <Link
@@ -87,16 +93,23 @@ const Navbar = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-[hsl(240_14%_5%/0.97)] backdrop-blur-xl border-b border-[hsl(var(--hairline))]"
           >
             <div className="flex flex-col gap-1 p-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-muted-foreground hover:text-foreground py-3 px-4 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setMobileOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`py-3 px-4 transition-colors flex items-center gap-2.5 ${
+                      isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {isActive && <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />}
+                    {link.label}
+                  </Link>
+                );
+              })}
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}

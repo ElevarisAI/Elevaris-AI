@@ -56,7 +56,7 @@ const ProblemSection = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i <= 3 ? 0.5 + i * 0.12 : 1.31 + (i - 4) * 0.12, ease: [0.22, 1, 0.36, 1] as const }}
+                transition={{ duration: 0.5, delay: i <= 3 ? 0.35 + i * 0.09 : 0.95 + (i - 4) * 0.09, ease: [0.22, 1, 0.36, 1] as const }}
                 className={italic ? "accent-italic" : undefined}
               >
                 {word}{" "}
@@ -74,7 +74,7 @@ const ProblemSection = () => {
               initial={{ opacity: 0, y: 44 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "200px" }}
-              transition={{ duration: 0.65, delay: i === 0 ? 2.9 : i === 1 ? 3.35 : 3.99, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.65, delay: i === 0 ? 1.7 : i === 1 ? 1.95 : 2.2, ease: [0.22, 1, 0.36, 1] }}
               className="border-t border-[hsl(var(--hairline))] last:border-b"
             >
               <div className="problem-row">
@@ -94,7 +94,7 @@ const ProblemSection = () => {
                 </div>
                 <div className="stat-pill">
                   <span
-                    className="inline-block text-primary"
+                    className="stat-pill-chip inline-block text-primary"
                     style={{ border: '1px solid hsl(var(--primary) / 0.4)', padding: '7px 14px', borderRadius: 999, fontSize: 12, letterSpacing: '0.05em', whiteSpace: 'nowrap' }}
                   >
                     {row.pill}

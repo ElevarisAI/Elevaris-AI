@@ -7,7 +7,7 @@ const items = [
 ];
 
 const Marquee = () => (
-  <div className="overflow-hidden border-y border-[hsl(var(--hairline))] py-4 bg-background">
+  <div className="marquee-mask overflow-hidden border-y border-[hsl(var(--hairline))] py-4 bg-background">
     <div className="marquee-track flex whitespace-nowrap w-max">
       {[...items, ...items].map((item, i) => (
         <span key={i} className="inline-flex items-center">

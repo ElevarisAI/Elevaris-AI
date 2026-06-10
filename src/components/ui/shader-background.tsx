@@ -185,12 +185,10 @@ const ShaderBackground = ({
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    let rafId: number;
-    let isVisible = true;
-    let startTime = Date.now();
+    let rafId: number | null = null;
+    const startTime = Date.now();
 
     const render = () => {
-      if (!isVisible) { rafId = requestAnimationFrame(render); return; }
       const currentTime = (Date.now() - startTime) / 1000;
 
       gl.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -209,15 +207,25 @@ const ShaderBackground = ({
       rafId = requestAnimationFrame(render);
     };
 
-    rafId = requestAnimationFrame(render);
+    // Pause the loop entirely when offscreen — time is wall-clock based, so the
+    // animation phase stays continuous across pauses.
+    const stop = () => {
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    };
+    const start = () => {
+      if (rafId === null) rafId = requestAnimationFrame(render);
+    };
+
+    start();
 
     const io = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
+      if (entry.isIntersecting) start();
+      else stop();
     }, { threshold: 0 });
     io.observe(canvas);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      stop();
       io.disconnect();
       window.removeEventListener('resize', resizeCanvas);
     };

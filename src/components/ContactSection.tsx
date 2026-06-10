@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import DrawLine from "@/components/DrawLine";
 
 const serviceOptions = ["Agents", "SEO", "Other"];
@@ -219,7 +220,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                 className="p-8 md:p-10 space-y-5 border border-primary bg-[hsl(240_14%_7%/0.6)]"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
+                  <div className="field">
                     <label className="micro-label block mb-2">Name *</label>
                     <input
                       type="text"
@@ -233,7 +234,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                       placeholder="Your name"
                     />
                   </div>
-                  <div>
+                  <div className="field">
                     <label className="micro-label block mb-2">Business Name</label>
                     <input
                       type="text"
@@ -248,7 +249,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
+                  <div className="field">
                     <label className="micro-label block mb-2">Email *</label>
                     <input
                       type="email"
@@ -262,7 +263,7 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                       placeholder="you@company.com"
                     />
                   </div>
-                  <div>
+                  <div className="field">
                     <label className="micro-label block mb-2">Phone</label>
                     <input
                       type="tel"
@@ -276,23 +277,30 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="field">
                   <label className="micro-label block mb-2">Service Interest *</label>
-                  <select
-                    name="service_interest"
-                    value={form.service_interest}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full bg-[hsl(0_0%_100%/0.04)] border border-[hsl(0_0%_100%/0.08)] rounded px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary transition-colors appearance-none disabled:opacity-60"
-                  >
-                    <option value="" className="bg-card">Select an option</option>
-                    {serviceOptions.map((opt) => (
-                      <option key={opt} value={opt} className="bg-card">{opt}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      name="service_interest"
+                      value={form.service_interest}
+                      onChange={handleChange}
+                      required
+                      disabled={isLoading}
+                      className="w-full bg-[hsl(0_0%_100%/0.04)] border border-[hsl(0_0%_100%/0.08)] rounded px-4 py-3 pr-10 text-sm text-foreground focus:outline-none focus:border-primary transition-colors appearance-none disabled:opacity-60"
+                    >
+                      <option value="" className="bg-card">Select an option</option>
+                      {serviceOptions.map((opt) => (
+                        <option key={opt} value={opt} className="bg-card">{opt}</option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={16}
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+                    />
+                  </div>
                 </div>
-                <div>
+                <div className="field">
                   <label className="micro-label block mb-2">Message</label>
                   <textarea
                     name="message"
@@ -317,6 +325,21 @@ const ContactSection = ({ hero = false }: { hero?: boolean }) => {
                   disabled={isLoading}
                   className="w-full inline-flex items-center justify-center gap-3 text-[13px] uppercase tracking-[0.2em] font-medium text-background bg-foreground py-4 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
+                  {isLoading && (
+                    <svg
+                      aria-hidden="true"
+                      className="animate-spin"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    >
+                      <path d="M21 12a9 9 0 1 1-6.2-8.56" />
+                    </svg>
+                  )}
                   {isLoading ? "Sending…" : "Book a Free Demo"}
                 </button>
               </motion.form>

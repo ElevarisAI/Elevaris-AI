@@ -23,7 +23,6 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           "vendor-react": ["react", "react-dom"],
-          "vendor-three": ["three"],
           "vendor-framer": ["framer-motion"],
         },
       },

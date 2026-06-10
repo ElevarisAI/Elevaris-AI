@@ -79,6 +79,27 @@
     background: hsl(var(--primary) / 0.35);
     color: hsl(var(--foreground));
   }
+
+  /* Themed scrollbar — quiet, hairline-weight */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(240 10% 20%) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(240 10% 20%);
+    border-radius: 999px;
+    border: 3px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(184 30% 30%);
+  }
 }
 
 @layer components {
@@ -188,6 +209,45 @@
   }
   .glow-blob { display: none; }
   .dot-grid { display: none; }
+
+  /* Nav link — hairline underline draws in from the left */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 1px;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link.nav-link-active::after {
+    transform: scaleX(1);
+  }
+  .nav-link-active {
+    color: hsl(var(--foreground));
+  }
+
+  /* Form field — label warms to primary while its input is focused */
+  .field:focus-within > label {
+    color: hsl(var(--primary));
+    transition: color 200ms;
+  }
+
+  /* Stat pill — quiet fill on hover */
+  .stat-pill-chip {
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .stat-pill-chip:hover {
+    background-color: hsl(var(--primary) / 0.08);
+    border-color: hsl(var(--primary) / 0.65) !important;
+  }
 }
 
 @keyframes marquee-x {
@@ -196,6 +256,15 @@
 }
 .marquee-track {
   animation: marquee-x 35s linear infinite;
+}
+
+/* Marquee — soft edge fades and pause on hover */
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 /* Problem row layout retained */
